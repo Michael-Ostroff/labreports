@@ -19,7 +19,7 @@
     <h1>Fractal Geometry Lab Report</h1>
     <p class="author">
       Michael Ostroff <br />
-      4/14/2025
+      4/15/2025
     </p>
   </header>
   
@@ -51,18 +51,59 @@
 	<!-- -------------------------------------------------------------------------------------------- -->
 	<section id="code">
 	<pre><code class="language-python">
-	# This is just a sample Python code block
-	# demonstrating how code might be displayed.
-
-	import numpy as np
-	import matplotlib.pyplot as plt
-
-	x = np.linspace(-10, 10, 100)
-	y = 2*x + 5
-
-	plt.plot(x, y)
-	plt.title("Sample Plot")
-	plt.show()
+#Some of the random functions I played around with
+def rand1_blip_line(length, order):
+    if order == 0:
+        forward(length)
+    else:
+        randVar=random.uniform(-20, 20)
+        rand1_blip_line(length / 3, order - 1)
+        left(60-randVar)
+        rand1_blip_line(length / 3, order - 1)
+        right(120)
+        rand1_blip_line(length / 3, order - 1)
+        left(60+randVar)
+        rand1_blip_line(length / 3, order - 1)
+def rand2_blip_line(length, order):
+    if order == 0:
+        forward(length)
+    else:
+        randVar1=random.uniform(-20, 20)
+        randVar2=random.uniform(-20, 20)
+        rand2_blip_line(length / 3, order - 1)
+        left(60-randVar1)
+        rand2_blip_line(length / 3, order - 1)
+        right(120+randVar2)
+        rand2_blip_line(length / 3, order - 1)
+        left(60+randVar1+randVar2)
+        rand2_blip_line(length / 3, order - 1)
+def rand3_line(length, order):
+    if order == 0:
+        forward(length)
+    else:
+        randVar1=random.uniform(-40, 40)
+        randVar2=random.uniform(-100, 100)
+        rand3_line(length / 3, order - 1)
+        left(0-randVar1)
+        rand3_line(length / 3, order - 1)
+        right(0+randVar2)
+        rand3_line(length / 3, order - 1)
+        left(0+randVar1+randVar2)
+        rand3_line(length / 3, order - 1)
+def rand4_line(length, order):
+    if order == 0:
+        forward(length)
+    else:
+        randVar1=100*random.uniform(-1, 1)
+        randVar2=20*random.uniform(-1, 1)
+        rand4_line(length / 3, order - 1)
+        left(0-randVar1)
+        rand4_line(length / 3, order - 1)
+        right(0+randVar2)
+        rand4_line(length / 3, order - 1)
+        left(0+randVar1+randVar2)
+        rand4_line(length / 3, order - 1)
+		
 	</code></pre>
 
 
@@ -86,6 +127,7 @@
           results, or insights gained from any analysis. You can incorporate 
           references to equations (e.g., $y = mx + b$) or embed images and 
           other visual aids to illustrate your points.
+	  I discovered something interesting. If the Koch curve is slightly randomized(rand1_blip_line and rand2_blip_line), it still won't intersect itself(at least it doesn't objectively appear to from the perspective of someone who can't zoom in). I decided to experiment with this by removing the bias inherent in the Koch curve and amplifying the randomness. It seems if the total randomness of randVar1 and randVar2 is below 120 degrees, then it seems very risiliant against self intersecting. Not completely sure about this though. It seems despite the randomness, the structure imposed by lower order limits how close elements of different segments can get to each other. This is likely quantifiable, and could be used to prove a lack of self-intersection. If this is the case, one could reliably create coastlines which don't intersect. If seeded randomness was involved, then this could allow this to be converted into a parametric function.
         </p>
 
 
