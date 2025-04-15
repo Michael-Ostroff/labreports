@@ -36,7 +36,7 @@
       <section id="introduction">
         <h2>Introduction</h2>
         <p>
-          For this module, we used the turtle code to create brownian motion,
+          For this module, we used the turtle code to create Brownian motion,
           Koch, and dragon fractals. We were then told to play around with the
           code to create our own fractals. I made higher order Koch curves and
           played around with adding randomness to them.
@@ -123,7 +123,7 @@ def rand4_line(length, order):
       
         <h2>Results &amp; Analysis</h2>
         <p>
-	  I discovered something interesting. If the Koch curve is slightly randomized(rand1_blip_line and rand2_blip_line), it still won't intersect itself(at least it doesn't objectively appear to from the perspective of someone who can't zoom in). I decided to experiment with this by removing the bias inherent in the Koch curve and amplifying the randomness. It seems if the total randomness of randVar1 and randVar2 is below 120 degrees, then it seems very risiliant against self intersecting. Not completely sure about this though. It seems despite the randomness, the structure imposed by lower order limits how close elements of different segments can get to each other. This is likely quantifiable, and could be used to prove a lack of self-intersection. If this is the case, one could reliably create coastlines which don't intersect. If seeded randomness was involved, then this could allow this to be converted into a parametric function.
+	  I discovered something interesting. If the Koch curve is slightly randomized(rand1_blip_line and rand2_blip_line), it still won't intersect itself(at least it doesn't objectively appear to from the perspective of someone who can't zoom in). I decided to experiment with this by removing the bias inherent in the Koch curve and amplifying the randomness. It seems if the total randomness of randVar1 and randVar2 is below 120 degrees, then it seems very resilient against self-intersecting. Not completely sure about this though. It seems despite the randomness, the structure imposed by lower order limits how close elements of different segments can get to each other. This is likely quantifiable, and could be used to prove a lack of self-intersection. If this is the case, one could reliably create coastlines which don't intersect. If seeded randomness was involved, then this could allow this to be converted into a parametric function.
         </p>
 
 
@@ -205,7 +205,7 @@ def rand4_line(length, order):
       <section id="conclusion">
         <h2>Conclusion</h2>
         <p>
-          In this sample conclusion, we highlight how the iterative approach to generating fractals reveals the vast complexity inherent in seemingly simple equations. Through our Python implementation, we observed that small parameter changes can produce markedly different fractal patterns, underscoring the Mandelbrot set's boundless intricacy. Our visualizations not only confirm the self-similarity and infinite resolution of the set, but also underscore the crucial role of computational optimizations in making high-resolution explorations feasible. Ultimately, this lab demonstrates that fractal geometry, far from being mere mathematical curiosities, provides deep insights into pattern formation and complexity in both pure mathematics and broader scientific contexts. 
+          To conclude this, I've potentially discovered a way to make random coastlines which never intersect with themselves. Given how easy this was, it probably isn't novel. Then again, our knowledge of Complex Systems is as deep as a puddle in most places, so who knows!
         </p>
       </section>
 
