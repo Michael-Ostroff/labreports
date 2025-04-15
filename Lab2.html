@@ -123,10 +123,6 @@ def rand4_line(length, order):
       
         <h2>Results &amp; Analysis</h2>
         <p>
-          In this placeholder section, you might describe observations,
-          results, or insights gained from any analysis. You can incorporate 
-          references to equations (e.g., $y = mx + b$) or embed images and 
-          other visual aids to illustrate your points.
 	  I discovered something interesting. If the Koch curve is slightly randomized(rand1_blip_line and rand2_blip_line), it still won't intersect itself(at least it doesn't objectively appear to from the perspective of someone who can't zoom in). I decided to experiment with this by removing the bias inherent in the Koch curve and amplifying the randomness. It seems if the total randomness of randVar1 and randVar2 is below 120 degrees, then it seems very risiliant against self intersecting. Not completely sure about this though. It seems despite the randomness, the structure imposed by lower order limits how close elements of different segments can get to each other. This is likely quantifiable, and could be used to prove a lack of self-intersection. If this is the case, one could reliably create coastlines which don't intersect. If seeded randomness was involved, then this could allow this to be converted into a parametric function.
         </p>
 
@@ -135,16 +131,62 @@ def rand4_line(length, order):
 
         <figure>
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Mandel_zoom_00_mandelbrot_set.jpg/800px-Mandel_zoom_00_mandelbrot_set.jpg"
-            alt="Mandelbrot Broad View"
-            width="600"
-            height="400"
+            src="https://michael-ostroff.github.io/labreports/images/mod2/MTG6415Mod2Im1r2-1.png"
+            alt="rand2_blip_line"
+            width="1000"
+            height="800"
             loading="lazy"
           />
           <figcaption>
-            <strong>Figure 1:</strong> A broad view of the Mandelbrot set 
-            (max_iter = 100). Colors represent how many iterations were 
-            needed to exceed |z|=2.
+            <strong>Figure 1:</strong> The slightly randomized Koch curve rand2_blip_line creates.
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod2/MTG6415Mod2Im1r3-1.png"
+            alt="rand3_blip_line"
+            width="1000"
+            height="800"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 2:</strong> The heavily randomized line rand3_blip_line creates.
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod2/MTG6415Mod2Im1r3-2.png"
+            alt="rand3_blip_line"
+            width="1000"
+            height="800"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 3:</strong> The heavily randomized line rand3_blip_line creates.
+          </figcaption>
+        </figure>
+	<figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod2/MTG6415Mod2Im1r3-3.png"
+            alt="rand3_blip_line"
+            width="1000"
+            height="800"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 4:</strong> The heavily randomized line rand3_blip_line creates.
+          </figcaption>
+        </figure>
+	<figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod2/MTG6415Mod2Im1r4-1.png"
+            alt="rand4_blip_line"
+            width="1000"
+            height="800"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 5:</strong> The heavily randomized line rand4_blip_line creates.
           </figcaption>
         </figure>
 
