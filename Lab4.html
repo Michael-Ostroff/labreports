@@ -1,0 +1,183 @@
+<!-- INTRODUCTION SECTION -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<html>
+<head> <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="stylesheet" href="https://latex.vercel.app/style.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"/><script defer id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+
+<title>Fractal Geometry Lab Report</title>
+
+</head>
+	
+<body id="top">
+
+
+
+
+  <header>
+    <h1>Fractal Geometry Lab Report</h1>
+    <p class="author">
+      Michael Ostroff <br />
+      04/21/25
+    </p>
+  </header>
+  
+
+
+  <main>
+    <article class="indent-pars">
+      
+      <!-- INTRODUCTION SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+          This module was about L-Systems, like those which can generate fern fractals.
+          This module provided us with code to generate these fractal trees. I used it
+          to create the Cayley graph, a fractal which contains itself and its environment.
+        </p>
+      </section>
+
+
+     
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<section id="code">
+	<pre><code class="language-python">
+!wget -O turtle_setup.py 'https://raw.githubusercontent.com/williamedwardhahn/fractal25/refs/heads/main/turtle_setup.py'
+from turtle_setup import *
+# Function to draw a fractal tree using recursion
+def fractal_tree(length, depth):
+    if depth == 0:
+        return
+    else:
+
+        forward(length)
+        left(30)
+
+        fractal_tree(length * 0.7, depth - 1)
+
+        right(60)
+
+        fractal_tree(length * 0.7, depth - 1)
+
+        left(30)
+        backward(length)
+def calGraphElement(length, depth,ang,angMult,lengthMult):
+  if depth == 0:
+    return
+  else:
+    forward(length)
+    calGraphElement(length*lengthMult, depth-1,ang*angMult,angMult,lengthMult)
+    left(ang)
+    calGraphElement(length*lengthMult, depth-1,ang*angMult,angMult,lengthMult)
+    right(2*ang)
+    calGraphElement(length*lengthMult, depth-1,ang*angMult,angMult,lengthMult)
+    left(ang)
+    backward(length)
+def calGraph(length, depth,ang,angMult,lengthMult):
+  calGraphElement(length, depth,ang,angMult,lengthMult)
+  right(90)
+  calGraphElement(length, depth,ang,angMult,lengthMult)
+  right(90)
+  calGraphElement(length, depth,ang,angMult,lengthMult)
+  right(90)
+  calGraphElement(length, depth,ang,angMult,lengthMult)
+  right(90)
+# Initialize the turtle
+initializeTurtle(initial_window_size=(500, 500))
+
+# Set up the turtle's starting position and orientation
+jump(250, 250)  # Starting position at the bottom center of the canvas
+face(0)
+color('green')  # Set the pen color
+
+# Set the length and depth for the fractal tree
+length = 100  # Initial length of the main trunk
+depth = 7     # Recursion depth (number of branching levels)
+
+# Draw the fractal tree
+calGraph(length, depth,90,1,0.49)
+
+# Display the drawing
+show()
+	</code></pre>
+
+
+
+
+
+
+      </section>
+
+      <!-- RESULTS & ANALYSIS SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="results">
+      
+      
+        <h2>Results &amp; Analysis</h2>
+        <p>
+          In this placeholder section, you might describe observations,
+          results, or insights gained from any analysis. You can incorporate 
+          references to equations (e.g., $y = mx + b$) or embed images and 
+          other visual aids to illustrate your points.
+        </p>
+
+
+
+
+        <figure>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Mandel_zoom_00_mandelbrot_set.jpg/800px-Mandel_zoom_00_mandelbrot_set.jpg"
+            alt="Mandelbrot Broad View"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 1:</strong> A broad view of the Mandelbrot set 
+            (max_iter = 100). Colors represent how many iterations were 
+            needed to exceed |z|=2.
+          </figcaption>
+        </figure>
+
+
+
+
+      </section>
+
+
+
+      <!-- CONCLUSION SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+          In this sample conclusion, we highlight how the iterative approach to generating fractals reveals the vast complexity inherent in seemingly simple equations. Through our Python implementation, we observed that small parameter changes can produce markedly different fractal patterns, underscoring the Mandelbrot set's boundless intricacy. Our visualizations not only confirm the self-similarity and infinite resolution of the set, but also underscore the crucial role of computational optimizations in making high-resolution explorations feasible. Ultimately, this lab demonstrates that fractal geometry, far from being mere mathematical curiosities, provides deep insights into pattern formation and complexity in both pure mathematics and broader scientific contexts. 
+        </p>
+      </section>
+
+     
+     
+     
+   
+     
+     
+     
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
