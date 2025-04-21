@@ -36,12 +36,9 @@
       <section id="introduction">
         <h2>Introduction</h2>
         <p>
-          This is a sample introduction showcasing how you might structure 
-          your opening section. Replace this paragraph with a concise 
-          overview of the topic or project you are addressing. You can then 
-          expand the explanation as needed.
           This module focused on the Sierpinski triangle as well as cellular automata.
           The Sierpinski triangle is the shape you get if you start with a triangle and
+	  recursively convert triangles into a Tri-force.
         </p>
       </section>
 
@@ -153,10 +150,16 @@ show()
       
         <h2>Results &amp; Analysis</h2>
         <p>
-          In this placeholder section, you might describe observations,
-          results, or insights gained from any analysis. You can incorporate 
-          references to equations (e.g., $y = mx + b$) or embed images and 
-          other visual aids to illustrate your points.
+          I modified the Sierpinski triangle code so that I could tint the triangles based on their location
+	  in the fractal. I also added code which alters the structure of the fractal. One can imagine the process 
+	  of creating the next step of a Sierpinski triangle as taking all triangles and punching a triangular hole in them.
+	  I modified how this hole gets punched out. In my code, the edges of this hole are not fixed to being half the
+	  sidelength, but can instead be any value between 0-1. The relSide parameter of sierpinski_triangle4 controls this.
+	  In order to facilitate this functionality, the triangles are no longer equilateral. Instead, their points have
+	  to be specified by the points parameter. sierpinski_triangle5 is very similar, but its relSide parameter is random.
+	  This randomization is biased towards 0.5, and the intensity of the randomness is governed by the randPar parameter.
+
+	  There was also 
         </p>
 
 
