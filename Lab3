@@ -53,22 +53,91 @@
 	<!-- -------------------------------------------------------------------------------------------- -->
 	<section id="code">
 	<pre><code class="language-python">
-	# This is just a sample Python code block
-	# demonstrating how code might be displayed.
+# Define the function to draw an equilateral triangle
+def color_blend(c1,c2,x):
+  return tuple((1-x)*c1[k]+x*c2[k] for k in range(3))
+def coord_blend(points,p1,p2,x):
+  return tuple((1-x)*points[p1][k]+x*points[p2][k] for k in range(2))
+def points_list_gen(points,relSide):
+  newpointslist=tuple(coord_blend(points,k,(k+1)%3,relSide[k]) for k in range(3))
+  return tuple((points[k],newpointslist[k],newpointslist[(k-1)%3]) for k in range(3))
+def sierpinski_triangle4(order,points,relSide,colorInp,colorDecay):
+  color(color_rgb(*colorInp))
+  penup()
+  if order==0:
+    color(color_rgb(*colorInp))
+    goto(*points[2])
+    pendown()
+    for k in range(3):
+      goto(*points[k])
+    penup()
+  else:
+    points_list=points_list_gen(points,relSide)
+    sierpinski_triangle4(order - 1,points_list[0],relSide,color_blend(colorInp,(1,0,0),colorDecay),colorDecay)
+    sierpinski_triangle4(order - 1,points_list[1],relSide,color_blend(colorInp,(0,1,0),colorDecay),colorDecay)
+    sierpinski_triangle4(order - 1,points_list[2],relSide,color_blend(colorInp,(0,0,1),colorDecay),colorDecay)
+initializeTurtle()
+#showturtle()
 
-	import numpy as np
-	import matplotlib.pyplot as plt
-
-	x = np.linspace(-10, 10, 100)
-	y = 2*x + 5
-
-	plt.plot(x, y)
-	plt.title("Sample Plot")
-	plt.show()
+# Set up the turtle
+jump(300, 500)
+face(90)
+bgcolor('black')
+color('green')
+width(1)
+equilateral_points=tuple((500-400*math.sin(2*k*math.pi/3),400-400*math.cos(2*k*math.pi/3)) for k in range(3))
+# Draw the Sierpinski triangle
+length = 400
+order = 8
+#order = 1
+sierpinski_triangle4(order, equilateral_points,(0.63,0.5,0.37),(1,1,1),0.2)
+#hideturtle()
+show()
 	</code></pre>
 
+<pre><code class="language-python">
+# Define the function to draw an equilateral triangle
+def color_blend(c1,c2,x):
+  return tuple((1-x)*c1[k]+x*c2[k] for k in range(3))
+def coord_blend(points,p1,p2,x):
+  return tuple((1-x)*points[p1][k]+x*points[p2][k] for k in range(2))
+def points_list_gen(points,relSide):
+  newpointslist=tuple(coord_blend(points,k,(k+1)%3,relSide[k]) for k in range(3))
+  return tuple((points[k],newpointslist[k],newpointslist[(k-1)%3]) for k in range(3))
+def sierpinski_triangle5(order,points,randPar,colorInp,colorDecay):
+  #color(color_rgb(*colorInp))
+  relSide=tuple(0.5+randPar*(2*random.random()-1)/4 for k in range(3))
+  penup()
+  if order==0:
+    color(color_rgb(*colorInp))
+    goto(*points[2])
+    pendown()
+    for k in range(3):
+      goto(*points[k])
+    penup()
+  else:
+    points_list=points_list_gen(points,relSide)
+    sierpinski_triangle5(order - 1,points_list[0],randPar,color_blend(colorInp,(1,0,0),colorDecay),colorDecay)
+    sierpinski_triangle5(order - 1,points_list[1],randPar,color_blend(colorInp,(0,1,0),colorDecay),colorDecay)
+    sierpinski_triangle5(order - 1,points_list[2],randPar,color_blend(colorInp,(0,0,1),colorDecay),colorDecay)
+initializeTurtle()
+#showturtle()
 
-
+# Set up the turtle
+jump(300, 500)
+face(90)
+bgcolor('black')
+color('green')
+width(1)
+equilateral_points=tuple((500-400*math.sin(2*k*math.pi/3),400-400*math.cos(2*k*math.pi/3)) for k in range(3))
+# Draw the Sierpinski triangle
+length = 400
+order = 8
+#order = 1
+sierpinski_triangle5(order, equilateral_points,0.3,(1,1,1),0.2)
+#hideturtle()
+show()
+	</code></pre>
 
 
 
