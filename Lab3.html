@@ -135,6 +135,36 @@ sierpinski_triangle5(order, equilateral_points,0.3,(1,1,1),0.2)
 #hideturtle()
 show()
 	</code></pre>
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot(x):
+    fig, ax = plt.subplots()
+    im = ax.imshow(x, cmap = 'gray')
+    ax.axis('off')
+    fig.set_size_inches(10, 10)
+    plt.show()
+C = np.zeros((100,100)).astype(int)
+C[0,50] = 1
+#plot(C)
+C[0]=(np.random.rand(100) < 0.3).astype(int)
+
+
+def CA2(X,rule):
+
+    for i in range(1,X.shape[0]-1): #row
+        for j in range(1,X.shape[1]-1): #col
+
+            X[i,j] = (rule/(2**(4*X[i-1,j-1] + 2*X[i-1,j] + X[i-1,j+1]))) % 2
+        if i%4==0:
+            rule=random.randint(0,255)
+    return X
+
+rule = 90
+
+plot(CA2(C,rule))
+	</code></pre>
 
 
 
@@ -159,7 +189,8 @@ show()
 	  to be specified by the points parameter. sierpinski_triangle5 is very similar, but its relSide parameter is random.
 	  This randomization is biased towards 0.5, and the intensity of the randomness is governed by the randPar parameter.
 
-	  There was also 
+	  There was also a cellular automata aspect of this project. My modification here was about changing the rule used
+	  after a given amount of steps.
         </p>
 
 
