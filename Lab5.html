@@ -18,8 +18,8 @@
   <header>
     <h1>Fractal Geometry Lab Report</h1>
     <p class="author">
-      [Your Name] <br />
-      [Date]
+      Michael Ostroff <br />
+      04/21/25
     </p>
   </header>
   
@@ -36,10 +36,8 @@
       <section id="introduction">
         <h2>Introduction</h2>
         <p>
-          This is a sample introduction showcasing how you might structure 
-          your opening section. Replace this paragraph with a concise 
-          overview of the topic or project you are addressing. You can then 
-          expand the explanation as needed.
+	  This module focused on the Cantor Set, what I consider to be exceedingly
+	  boring as far as fractals are concerned.
         </p>
       </section>
 
@@ -51,18 +49,44 @@
 	<!-- -------------------------------------------------------------------------------------------- -->
 	<section id="code">
 	<pre><code class="language-python">
-	# This is just a sample Python code block
-	# demonstrating how code might be displayed.
+# Import libraries for math and plotting
+import numpy as np
+import matplotlib.pyplot as plt
 
-	import numpy as np
-	import matplotlib.pyplot as plt
+# Set initial parameters
+x_start = 0       # Starting x-coordinate of the first bar
+x_end = 3         # Ending x-coordinate of the first bar
+y_position = 0    # Starting y-coordinate (height of the first bar)
+bar_height = 5    # Height of each bar
+spacing = 10      # Space between bars (distance downwards)
+depth = 6         # Number of levels to draw
 
-	x = np.linspace(-10, 10, 100)
-	y = 2*x + 5
+# Define a function to create the Cantor Set pattern
+def cantor_set3(x_start, x_end, y_position, depth,segs):
+    if depth == 0:
+        return []
+    seglist=[]
+    for i in range(segs):
+      starti=x_start + 2*i*(x_end - x_start) / (segs+2)
+      endi=x_start + (2*i+1)*(x_end - x_start) / (segs+2)
+      seglist+=[[starti,endi, y_position]]+cantor_set3(starti,endi, y_position - spacing, depth - 1,segs)
 
-	plt.plot(x, y)
-	plt.title("Sample Plot")
-	plt.show()
+    # Combine the current segments with the results from recursive calls
+    return seglist
+
+# Generate Cantor Set segments data
+segments = np.array(cantor_set3(x_start, x_end, y_position, depth,3))  # Convert to an array for easy plotting
+
+# Plot the Cantor Set
+plt.figure(figsize=(25, 25),facecolor="#00000000")
+
+# Draw each segment as a black bar
+for x_start, x_end, y in segments:
+    plt.fill_between([x_start, x_end], [y] * 2, [y - bar_height] * 2, color="#FFFFFF")
+
+# Hide the axes for a clean look
+plt.axis('off')
+plt.show()
 	</code></pre>
 
 
@@ -82,27 +106,22 @@
       
         <h2>Results &amp; Analysis</h2>
         <p>
-          In this placeholder section, you might describe observations,
-          results, or insights gained from any analysis. You can incorporate 
-          references to equations (e.g., $y = mx + b$) or embed images and 
-          other visual aids to illustrate your points.
+	  I rewrote part of the code so a user could specify how many segments
+	  it'd break into for the next step. I found it very boring.
         </p>
 
 
 
 
         <figure>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Mandel_zoom_00_mandelbrot_set.jpg/800px-Mandel_zoom_00_mandelbrot_set.jpg"
-            alt="Mandelbrot Broad View"
+          <imghttps://michael-ostroff.github.io/labreports/images/mod5/MTG6415Mod5Im1.png"
+            alt="Cantor Set 3"
             width="600"
             height="400"
             loading="lazy"
           />
           <figcaption>
-            <strong>Figure 1:</strong> A broad view of the Mandelbrot set 
-            (max_iter = 100). Colors represent how many iterations were 
-            needed to exceed |z|=2.
+            Cantor Set 3
           </figcaption>
         </figure>
 
@@ -121,7 +140,7 @@
       <section id="conclusion">
         <h2>Conclusion</h2>
         <p>
-          In this sample conclusion, we highlight how the iterative approach to generating fractals reveals the vast complexity inherent in seemingly simple equations. Through our Python implementation, we observed that small parameter changes can produce markedly different fractal patterns, underscoring the Mandelbrot set's boundless intricacy. Our visualizations not only confirm the self-similarity and infinite resolution of the set, but also underscore the crucial role of computational optimizations in making high-resolution explorations feasible. Ultimately, this lab demonstrates that fractal geometry, far from being mere mathematical curiosities, provides deep insights into pattern formation and complexity in both pure mathematics and broader scientific contexts. 
+          To conclude, the Cantor set is technically a fractal. It is greatly overshadowed by Fatou dust, an objectively better dust fractal.
         </p>
       </section>
 
