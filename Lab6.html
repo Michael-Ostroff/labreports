@@ -52,18 +52,25 @@
 	<!-- -------------------------------------------------------------------------------------------- -->
 	<section id="code">
 	<pre><code class="language-python">
-	# This is just a sample Python code block
-	# demonstrating how code might be displayed.
-
-	import numpy as np
-	import matplotlib.pyplot as plt
-
-	x = np.linspace(-10, 10, 100)
-	y = 2*x + 5
-
-	plt.plot(x, y)
-	plt.title("Sample Plot")
-	plt.show()
+	# Visualize the grid of points
+	def plot_grid_limited(grid,xlim,ylim):
+    		x_grid, y_grid = grid
+    		plt.figure(figsize=(10, 10))
+    		plt.xlim(*xlim)
+    		plt.ylim(*ylim)
+    		plt.scatter(x_grid, y_grid, s=1, color='blue')  # Plot the grid points
+    		plt.title(f'2D Grid of {len(x_grid)}x{len(y_grid)} points')
+    		plt.show()
+	temp1=2
+	plot_grid_limited(iterative_transform(grid, 31),(-temp1,temp1),(-temp1,temp1))
+	def iterative_transform_Herman(grid, iterations):
+    		x_grid, y_grid = grid
+    		z = x_grid + 1j * y_grid  # Create a complex plane
+    		for i in range(iterations):
+    		    z = (-0.749391 - 0.662128j)*z*z*(z-4)/(1-4*z)  # Iteratively apply the transformation
+    		return np.real(z), np.imag(z)
+	temp1=2
+	plot_grid_limited(iterative_transform_Herman(grid, 100),(-temp1,temp1),(-temp1,temp1))
 	</code></pre>
 
 
@@ -87,6 +94,10 @@
           results, or insights gained from any analysis. You can incorporate 
           references to equations (e.g., $y = mx + b$) or embed images and 
           other visual aids to illustrate your points.
+	If you put the iteration level too high, the range of the plot explodes to ComplexInfinity.
+	I wanted to show the attractor at z=(1-√3)/2, so I made the function plot_grid_limited
+	for plotting with a constrained range. I decided to try a rational function which possesses
+	a Herman ring(iterative_transform_Herman). I don't know what those are at this time.
         </p>
 
 
@@ -122,7 +133,8 @@
       <section id="conclusion">
         <h2>Conclusion</h2>
         <p>
-          In this sample conclusion, we highlight how the iterative approach to generating fractals reveals the vast complexity inherent in seemingly simple equations. Through our Python implementation, we observed that small parameter changes can produce markedly different fractal patterns, underscoring the Mandelbrot set's boundless intricacy. Our visualizations not only confirm the self-similarity and infinite resolution of the set, but also underscore the crucial role of computational optimizations in making high-resolution explorations feasible. Ultimately, this lab demonstrates that fractal geometry, far from being mere mathematical curiosities, provides deep insights into pattern formation and complexity in both pure mathematics and broader scientific contexts. 
+          To conclude, we're about to get into some really exciting territory. I only wish I had more time to dedicate towards doing this
+	  classwork and discovering new fractal phenomena.
         </p>
       </section>
 
