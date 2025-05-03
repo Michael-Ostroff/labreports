@@ -1,1 +1,295 @@
+<!-- INTRODUCTION SECTION -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<html>
+<head> <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="stylesheet" href="https://latex.vercel.app/style.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"/><script defer id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
 
+<title>Fractal Geometry Lab Report</title>
+
+</head>
+	
+<body id="top">
+
+
+
+
+  <header>
+    <h1>Fractal Geometry Lab Report</h1>
+    <p class="author">
+      Michael Ostroff <br />
+      5/3/25
+    </p>
+  </header>
+  
+
+
+  <main>
+    <article class="indent-pars">
+      
+      <!-- INTRODUCTION SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+	For this assignment, I upgraded the code to be capable of Stripe Average Coloring(SAC) as well as
+	allowing the function used to differ from f[z,c]=z²+c. I usually visualize the Julia set via its
+  fractal flow, so I wasn't sure if the code I used for the Mandelbrot set would work here as well. I also 
+  usually work with polynomial functions, so I was curious if the dynamics of functions with poles were different.
+        </p>
+      </section>
+
+
+     
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<section id="code">
+	<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+from numba import jit
+import math
+import cmath
+@jit(nopython=True)
+def f(z,c):
+  return z*z + c
+# JIT-optimized function to generate the Julia Set
+@jit(nopython=True)
+def julia_setSAC(c, xmin, xmax, ymin, ymax, width, height, max_iter,escape_rad,s,zmaxdegree):
+    r1 = np.linspace(xmin, xmax, width)
+    r2 = np.linspace(ymin, ymax, height)
+    n3 = np.empty((width, height))
+
+    for i in range(width):
+        for j in range(height):
+            z = r1[i] + 1j * r2[j]
+            n = 0
+            a=0
+            while abs(z) <= escape_rad and n &lt; max_iter:
+                z =f(z,c)
+                a+=(1+math.sin(s*cmath.phase(z)))/2
+                n += 1
+            n3[i, j]=0
+            if n&lt;max_iter:
+              nback=math.log(math.log(escape_rad)/math.log(abs(z)))/math.log(zmaxdegree)
+              n3[i, j]=-a*nback/(n-1)+(a+(1+math.sin(zmaxdegree*s*cmath.phase(z)))/2)*(nback+1)/n
+            #n3[i, j]=n
+
+    return n3
+
+# Parameters for the plot
+xmin, xmax, ymin, ymax = -1.5, 1.5, -1.5, 1.5
+width, height = 800, 800  # Image resolution
+max_iter = 1000  # Number of iterations for accuracy
+
+# Choose a value for the complex constant c
+c = complex(-0.8, 0.156)
+
+# Generate the Julia Set
+n3 = julia_setSAC(c, xmin, xmax, ymin, ymax, width, height, max_iter,1E20,7,2)
+
+
+fig=plt.figure(figsize=(10, 10))
+plt.imshow(n3.T, extent=[xmin, xmax, ymin, ymax], cmap='hot', interpolation='bilinear')
+plt.axis('off')
+fig.patch.set_visible(False)
+plt.show()
+	</code></pre>
+
+
+
+
+
+
+      </section>
+
+      <!-- RESULTS & ANALYSIS SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="results">
+      
+      
+        <h2>Results &amp; Analysis</h2>
+        <p>
+	I decided to experiment around with the function (z - 1)*(z + 3j)*(z + 1)/(z - 1 - 1j) + c.
+	This function possesses a pole, whereas most other functions I've investigated have been
+	polynomials. I was unable to create a poled function with specified critical points, so I
+	numerically solved for them. As a reminder, the critical points are where the gradient of the function is 0,
+	and in general they depend on c. The critical points are -0.265132725287584282276095663520495655571-1.434369137912759192337826752494042169132j,
+	0.3223430833641803593231988844917195952007-0.4910621236850123822742827942731903547106j,
+	and 1.442789641923403922952896779028776060370+1.925431261597771574612109546767232523842j.
+	The first two had overlapping Mandelbrot sets near the origin, but the third had none near there.
+	I had to zoom out a lot to see one.
+        </p>
+
+
+
+
+
+
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im1.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=z*z+c
+            xmin, xmax, ymin, ymax = -0.75, -0.74, 0.1, 0.11
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im2.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=z*z+c
+            xmin, xmax, ymin, ymax = -2, 0.5, -1.25,1.25
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im3.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
+            xmin, xmax, ymin, ymax = -4, 0, -4,0
+	    Critical Point #1
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im4.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
+            xmin, xmax, ymin, ymax = -4, 0, -4,0
+	    Critical Point #2
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im5.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
+            xmin, xmax, ymin, ymax = -4, 0, -4,0
+	    Critical Point #3
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im6.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
+            xmin, xmax, ymin, ymax = 10, 30, -40,-20
+	    Critical Point #3
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im7.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
+            xmin, xmax, ymin, ymax = 18.5, 19, -23.7,-23.2
+	    Critical Point #3
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im8.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
+            xmin, xmax, ymin, ymax = 18.7, 18.93, -23.5,-23.27
+	    Critical Point #3
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im9.png"
+            alt="Mandelbrot Set"
+            width="790"
+            height="790"
+            loading="lazy"
+          />
+          <figcaption>
+	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
+            xmin, xmax, ymin, ymax = -3.51846, -3.49846, -2.73923, -2.71923
+	    Critical Point #2
+          </figcaption>
+        </figure>
+
+
+
+
+
+      </section>
+
+
+
+      <!-- CONCLUSION SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+          To conclude, random complex functions can have multiple critical points, and they all have their own Mandelbrot sets.
+	  Despite this, the orbits of overlapping bulbs seem identical. It's not clear if this is a general property though.
+        </p>
+      </section>
+
+     
+     
+     
+   
+     
+     
+     
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
