@@ -119,15 +119,9 @@ plt.show()
       
         <h2>Results &amp; Analysis</h2>
         <p>
-	I decided to experiment around with the function (z - 1)*(z + 3j)*(z + 1)/(z - 1 - 1j) + c.
-	This function possesses a pole, whereas most other functions I've investigated have been
-	polynomials. I was unable to create a poled function with specified critical points, so I
-	numerically solved for them. As a reminder, the critical points are where the gradient of the function is 0,
-	and in general they depend on c. The critical points are -0.265132725287584282276095663520495655571-1.434369137912759192337826752494042169132j,
-	0.3223430833641803593231988844917195952007-0.4910621236850123822742827942731903547106j,
-	and 1.442789641923403922952896779028776060370+1.925431261597771574612109546767232523842j.
-	The first two had overlapping Mandelbrot sets near the origin, but the third had none near there.
-	I had to zoom out a lot to see one.
+	I used the same function (z - 1)*(z + 3j)*(z + 1)/(z - 1 - 1j) + c. I was expecting it
+	to be different from the polynomial remapping functions, but I'm not sure... The normal
+	Julia set came out well though.
         </p>
 
 
@@ -137,128 +131,33 @@ plt.show()
 
         <figure>
           <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im1.png"
-            alt="Mandelbrot Set"
+            src="https://michael-ostroff.github.io/labreports/images/mod8/MTG6415Mod8Im1.png"
+            alt="Julia Set"
             width="790"
             height="790"
             loading="lazy"
           />
           <figcaption>
 	    f(z,c)=z*z+c
-            xmin, xmax, ymin, ymax = -0.75, -0.74, 0.1, 0.11
+            xmin, xmax, ymin, ymax = -1.5, 1.5, -1.5, 1.5
+	    c=-0.8+0.156j
           </figcaption>
         </figure>
         <figure>
           <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im2.png"
-            alt="Mandelbrot Set"
-            width="790"
-            height="790"
-            loading="lazy"
-          />
-          <figcaption>
-	    f(z,c)=z*z+c
-            xmin, xmax, ymin, ymax = -2, 0.5, -1.25,1.25
-          </figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im3.png"
-            alt="Mandelbrot Set"
+            src="https://michael-ostroff.github.io/labreports/images/mod8/MTG6415Mod8Im2.png"
+            alt="Julia Set"
             width="790"
             height="790"
             loading="lazy"
           />
           <figcaption>
 	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = -4, 0, -4,0
-	    Critical Point #1
+            xmin, xmax, ymin, ymax = -2.7, 2.3, -3.5, 1.5
+	    c=-3.50846-2.72923j
           </figcaption>
         </figure>
-        <figure>
-          <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im4.png"
-            alt="Mandelbrot Set"
-            width="790"
-            height="790"
-            loading="lazy"
-          />
-          <figcaption>
-	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = -4, 0, -4,0
-	    Critical Point #2
-          </figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im5.png"
-            alt="Mandelbrot Set"
-            width="790"
-            height="790"
-            loading="lazy"
-          />
-          <figcaption>
-	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = -4, 0, -4,0
-	    Critical Point #3
-          </figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im6.png"
-            alt="Mandelbrot Set"
-            width="790"
-            height="790"
-            loading="lazy"
-          />
-          <figcaption>
-	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = 10, 30, -40,-20
-	    Critical Point #3
-          </figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im7.png"
-            alt="Mandelbrot Set"
-            width="790"
-            height="790"
-            loading="lazy"
-          />
-          <figcaption>
-	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = 18.5, 19, -23.7,-23.2
-	    Critical Point #3
-          </figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im8.png"
-            alt="Mandelbrot Set"
-            width="790"
-            height="790"
-            loading="lazy"
-          />
-          <figcaption>
-	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = 18.7, 18.93, -23.5,-23.27
-	    Critical Point #3
-          </figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://michael-ostroff.github.io/labreports/images/mod7/MTG6415Mod7Im9.png"
-            alt="Mandelbrot Set"
-            width="790"
-            height="790"
-            loading="lazy"
-          />
-          <figcaption>
-	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = -3.51846, -3.49846, -2.73923, -2.71923
-	    Critical Point #2
-          </figcaption>
-        </figure>
+
 
 
 
