@@ -36,11 +36,6 @@
       <section id="introduction">
         <h2>Introduction</h2>
         <p>
-	  We have finally gotten to the REALLY interesting fractals! Repeatedly applying remapping functions will cause 
-	you to jump around to new points. Eventually, you'll trend towards one of the system's attractors. Many such systems
-        will have a region whose starting points lie upon the edge between ComplexInfinity and some other attractor. This
-	edge usually has a fractal structure, similar to the magnetic pendulum fractal. In this setting, the boundary between
-	points which tend towards ComplexInfinity and all other attractors is called the Julia Set.
 	For this assignment, I upgraded the code to be capable of Stripe Average Coloring(SAC) as well as
 	allowing the function used to differ from f[z,c]=z²+c. I also probably spent too much time investigating
 	the orbits of the bulbs of overlapping Mandellbrot sets. Weirdly enough, for the handful of functions I tested,
@@ -57,25 +52,54 @@
 	<!-- -------------------------------------------------------------------------------------------- -->
 	<section id="code">
 	<pre><code class="language-python">
-	# Visualize the grid of points
-	def plot_grid_limited(grid,xlim,ylim):
-    		x_grid, y_grid = grid
-    		plt.figure(figsize=(10, 10))
-    		plt.xlim(*xlim)
-    		plt.ylim(*ylim)
-    		plt.scatter(x_grid, y_grid, s=1, color='blue')  # Plot the grid points
-    		plt.title(f'2D Grid of {len(x_grid)}x{len(y_grid)} points')
-    		plt.show()
-	temp1=2
-	plot_grid_limited(iterative_transform(grid, 31),(-temp1,temp1),(-temp1,temp1))
-	def iterative_transform_Herman(grid, iterations):
-    		x_grid, y_grid = grid
-    		z = x_grid + 1j * y_grid  # Create a complex plane
-    		for i in range(iterations):
-    		    z = (-0.749391 - 0.662128j)*z*z*(z-4)/(1-4*z)  # Iteratively apply the transformation
-    		return np.real(z), np.imag(z)
-	temp1=2
-	plot_grid_limited(iterative_transform_Herman(grid, 100),(-temp1,temp1),(-temp1,temp1))
+import math
+import cmath
+@jit(nopython=True)
+def f(z,c):
+  return z*z+c
+@jit(nopython=True)
+def mandelbrotSAC(c, max_iter,escape_rad,s,zmaxdegree,z0):
+    z = z0
+    n = 0
+    a=0
+    while abs(z) <= escape_rad and n < max_iter:
+        z = f(z,c)
+        a+=(1+math.sin(s*cmath.phase(z)))/2
+        n += 1
+    if n<max_iter:
+      #nback=math.log(math.log(escape_rad,abs(z)),2)
+      #nback=math.log(abs(z),2)
+      nback=math.log(math.log(escape_rad)/math.log(abs(z)))/math.log(zmaxdegree)
+      return -a*nback/(n-1)+(a+(1+math.sin(zmaxdegree*s*cmath.phase(z)))/2)*(nback+1)/n
+    return 0
+
+# JIT-optimized mandelbrot set generator
+@jit(nopython=True)
+def mandelbrot_setSAC(xmin, xmax, ymin, ymax, width, height, max_iter,escape_rad,s,zmaxdegree,z0):
+    r1 = np.linspace(xmin, xmax, width)
+    r2 = np.linspace(ymin, ymax, height)
+    n3 = np.empty((width, height))
+
+    for i in range(width):
+        for j in range(height):
+            n3[i, j] = mandelbrotSAC(r1[i] + 1j * r2[j], max_iter,escape_rad,s,zmaxdegree,z0)
+
+    return n3
+
+# Parameters for the initial zoom level
+xmin, xmax, ymin, ymax = -0.75, -0.74, 0.1, 0.11  # Zoom into this specific area
+width, height = 800, 800  # Resolution of the image
+max_iter = 5000  # Number of iterations
+
+# Generate the Mandelbrot Set with zoom
+n3 = mandelbrot_setSAC(xmin, xmax, ymin, ymax, width, height, max_iter,1E20,7,2,0)
+
+# Plotting the zoomed Mandelbrot Set
+fig=plt.figure(figsize=(10, 10))
+plt.imshow(n3.T, extent=[xmin, xmax, ymin, ymax], cmap='hot')
+plt.axis('off')
+fig.patch.set_visible(False)
+plt.show()
 	</code></pre>
 
 
