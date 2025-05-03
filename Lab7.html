@@ -62,11 +62,11 @@ def mandelbrotSAC(c, max_iter,escape_rad,s,zmaxdegree,z0):
     z = z0
     n = 0
     a=0
-    while abs(z) <= escape_rad and n < max_iter:
+    while abs(z) <= escape_rad and n <// max_iter:
         z = f(z,c)
         a+=(1+math.sin(s*cmath.phase(z)))/2
         n += 1
-    if n<max_iter:
+    if n<//max_iter:
       #nback=math.log(math.log(escape_rad,abs(z)),2)
       #nback=math.log(abs(z),2)
       nback=math.log(math.log(escape_rad)/math.log(abs(z)))/math.log(zmaxdegree)
