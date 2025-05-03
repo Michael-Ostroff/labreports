@@ -1,0 +1,162 @@
+<!-- INTRODUCTION SECTION -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------- -->
+<html>
+<head> <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="stylesheet" href="https://latex.vercel.app/style.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"/><script defer id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+
+<title>Fractal Geometry Lab Report</title>
+
+</head>
+	
+<body id="top">
+
+
+
+
+  <header>
+    <h1>Fractal Geometry Lab Report</h1>
+    <p class="author">
+      Michael Ostroff <br />
+      5/1/25
+    </p>
+  </header>
+  
+
+
+  <main>
+    <article class="indent-pars">
+      
+      <!-- INTRODUCTION SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+	  We have finally gotten to the REALLY interesting fractals! Repeatedly applying remapping functions will cause 
+	you to jump around to new points. Eventually, you'll trend towards one of the system's attractors. Many such systems
+        will have a region whose starting points lie upon the edge between ComplexInfinity and some other attractor. This
+	edge usually has a fractal structure, similar to the magnetic pendulum fractal. In this setting, the boundary between
+	points which tend towards ComplexInfinity and all other attractors is called the Julia Set.
+        </p>
+      </section>
+
+
+     
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------- -->
+	<section id="code">
+	<pre><code class="language-python">
+	# Visualize the grid of points
+	def plot_grid_limited(grid,xlim,ylim):
+    		x_grid, y_grid = grid
+    		plt.figure(figsize=(10, 10))
+    		plt.xlim(*xlim)
+    		plt.ylim(*ylim)
+    		plt.scatter(x_grid, y_grid, s=1, color='blue')  # Plot the grid points
+    		plt.title(f'2D Grid of {len(x_grid)}x{len(y_grid)} points')
+    		plt.show()
+	temp1=2
+	plot_grid_limited(iterative_transform(grid, 31),(-temp1,temp1),(-temp1,temp1))
+	def iterative_transform_Herman(grid, iterations):
+    		x_grid, y_grid = grid
+    		z = x_grid + 1j * y_grid  # Create a complex plane
+    		for i in range(iterations):
+    		    z = (-0.749391 - 0.662128j)*z*z*(z-4)/(1-4*z)  # Iteratively apply the transformation
+    		return np.real(z), np.imag(z)
+	temp1=2
+	plot_grid_limited(iterative_transform_Herman(grid, 100),(-temp1,temp1),(-temp1,temp1))
+	</code></pre>
+
+
+
+
+
+
+      </section>
+
+      <!-- RESULTS & ANALYSIS SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="results">
+      
+      
+        <h2>Results &amp; Analysis</h2>
+        <p>
+          In this placeholder section, you might describe observations,
+          results, or insights gained from any analysis. You can incorporate 
+          references to equations (e.g., $y = mx + b$) or embed images and 
+          other visual aids to illustrate your points.
+	If you put the iteration level too high, the range of the plot explodes to ComplexInfinity.
+	I wanted to show the attractor at z=(1-√3)/2, so I made the function plot_grid_limited
+	for plotting with a constrained range. I decided to try a rational function which possesses
+	a Herman ring(iterative_transform_Herman). I don't know what those are at this time.
+        </p>
+
+
+
+
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod6/MTG6415Mod6Im1.png"
+            alt="The only attractor at z=(1-√3)/2"
+            width="849"
+            height="836"
+            loading="lazy"
+          />
+          <figcaption>
+            The only attractor at z=(1-√3)/2
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/mod6/MTG6415Mod6Im2.png"
+            alt="Function with a Herman ring."
+            width="849"
+            height="836"
+            loading="lazy"
+          />
+          <figcaption>
+            Function with a Herman ring.
+          </figcaption>
+        </figure>
+
+
+
+
+      </section>
+
+
+
+      <!-- CONCLUSION SECTION -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <!-- -------------------------------------------------------------------------------------------- -->
+      <section id="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+          To conclude, we're about to get into some really exciting territory. I only wish I had more time to dedicate towards doing this
+	  classwork and discovering new fractal phenomena.
+        </p>
+      </section>
+
+     
+     
+     
+   
+     
+     
+     
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
