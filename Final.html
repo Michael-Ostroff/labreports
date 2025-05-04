@@ -52,55 +52,19 @@
 	<!-- -------------------------------------------------------------------------------------------- -->
 	<section id="code">
 	<pre><code class="language-python">
-import numpy as np
-import matplotlib.pyplot as plt
-from numba import jit
-import math
-import cmath
-@jit(nopython=True)
-def f(z,c):
-  return z*z + c
-# JIT-optimized function to generate the Julia Set
-@jit(nopython=True)
-def julia_setSAC(c, xmin, xmax, ymin, ymax, width, height, max_iter,escape_rad,s,zmaxdegree):
-    r1 = np.linspace(xmin, xmax, width)
-    r2 = np.linspace(ymin, ymax, height)
-    n3 = np.empty((width, height))
+def MobiusComp(z,zs,zd,m):
+  #zd is the drain coord, zs is the source coord, m is how much you step towards the drain.
+  #m=1 gives zd, m=-1 gives zs, and imaginary values give rotations
+  return (2*m*zd*zs-z*((m+1)*zd+(m-1)*zs))/(zs-zd+m*(zd+zs-2*z))
+def Mobius2DReal(p,ps,pd,pm):
+  #zd is the drain coord, zs is the source coord, m is how much you step towards the drain.
+  #m=1 gives zd, m=-1 gives zs, and imaginary values give rotations
+  z=MobiusComp(complex(*p),complex(*ps),complex(*pd),complex(*pm))
+  return (z.real,z.imag)
 
-    for i in range(width):
-        for j in range(height):
-            z = r1[i] + 1j * r2[j]
-            n = 0
-            a=0
-            while abs(z) <= escape_rad and n &lt; max_iter:
-                z =f(z,c)
-                a+=(1+math.sin(s*cmath.phase(z)))/2
-                n += 1
-            n3[i, j]=0
-            if n&lt;max_iter:
-              nback=math.log(math.log(escape_rad)/math.log(abs(z)))/math.log(zmaxdegree)
-              n3[i, j]=-a*nback/(n-1)+(a+(1+math.sin(zmaxdegree*s*cmath.phase(z)))/2)*(nback+1)/n
-            #n3[i, j]=n
-
-    return n3
-
-# Parameters for the plot
-xmin, xmax, ymin, ymax = -1.5, 1.5, -1.5, 1.5
-width, height = 800, 800  # Image resolution
-max_iter = 1000  # Number of iterations for accuracy
-
-# Choose a value for the complex constant c
-c = complex(-0.8, 0.156)
-
-# Generate the Julia Set
-n3 = julia_setSAC(c, xmin, xmax, ymin, ymax, width, height, max_iter,1E20,7,2)
-
-
-fig=plt.figure(figsize=(10, 10))
-plt.imshow(n3.T, extent=[xmin, xmax, ymin, ymax], cmap='hot', interpolation='bilinear')
-plt.axis('off')
-fig.patch.set_visible(False)
-plt.show()
+def f2(x, y):
+    x_new, y_new=Mobius2DReal((x,y),(1,2),(-3,4),(0.2,-0.2))
+    return x_new, y_new
 	</code></pre>
 
 
@@ -120,9 +84,16 @@ plt.show()
       
         <h2>Results &amp; Analysis</h2>
         <p>
-	I used the same function (z - 1)*(z + 3j)*(z + 1)/(z - 1 - 1j) + c. I was expecting it
-	to be different from the polynomial remapping functions, but I'm not sure... The normal
-	Julia set came out well though.
+	For the chaos game, I stuck with modifying the fern fractal. After lots of failures, I decided to stick with
+	modifying the function f2 by replacing it with my Mobius2DReal function with specific parameters. I was able
+	to find interesting fractals in this constrained situation.
+
+	For the L-Systems stuff, I made a tree, a fern, and a Koch curve.
+
+	For the Hilbert curve stuff, I had wanted to do that coastline stuff, but I was unable to figure out how to
+	do so in an L-System. For the coastline stuff in Lab 2, I was easily able to control the large scale structure
+	and break it down into more complicated shapes on smaller scales. This made it relatively easy to avoid self
+	intersections. I was also able to sp
         </p>
 
 
