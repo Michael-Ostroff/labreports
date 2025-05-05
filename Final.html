@@ -106,30 +106,62 @@ def f2(x, y):
 
         <figure>
           <img
-            src="https://michael-ostroff.github.io/labreports/images/mod8/MTG6415Mod8Im1.png"
-            alt="Julia Set"
-            width="790"
-            height="790"
+            src="https://michael-ostroff.github.io/labreports/images/Final/MTG6415FinalIm1.png"
+            alt="Mobius Fern"
+            width="515"
+            height="836"
             loading="lazy"
           />
           <figcaption>
-	    f(z,c)=z*z+c
-            xmin, xmax, ymin, ymax = -1.5, 1.5, -1.5, 1.5
-	    c=-0.8+0.156j
+	    Mobius2DReal((x,y),(1,2),(-3,4),(0.2,0.0))
           </figcaption>
         </figure>
         <figure>
           <img
-            src="https://michael-ostroff.github.io/labreports/images/mod8/MTG6415Mod8Im2.png"
-            alt="Julia Set"
-            width="790"
-            height="790"
+            src="https://michael-ostroff.github.io/labreports/images/Final/MTG6415FinalIm2.png"
+            alt="Mobius Fern"
+            width="503"
+            height="836"
             loading="lazy"
           />
           <figcaption>
-	    f(z,c)=(z-1)*(z+3j)*(z+1)/(z-1-1j)+c
-            xmin, xmax, ymin, ymax = -2.7, 2.3, -3.5, 1.5
-	    c=-3.50846-2.72923j
+	    Mobius2DReal((x,y),(1,2),(-3,4),(0.2,-0.2))
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/Final/MTG6415FinalIm3.png"
+            alt="Mobius Fern"
+            width="515"
+            height="836"
+            loading="lazy"
+          />
+          <figcaption>
+	    Mobius2DReal((x,y),(3,3),(-3,-3),(0.2,-0.2))
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/Final/MTG6415FinalIm4.png"
+            alt="Mobius Fern"
+            width="503"
+            height="836"
+            loading="lazy"
+          />
+          <figcaption>
+	    Mobius2DReal((x,y),(-3,3),(3,-3),(0.2,-0.2))
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://michael-ostroff.github.io/labreports/images/Final/MTG6415FinalIm5.png"
+            alt="Mobius Fern"
+            width="503"
+            height="836"
+            loading="lazy"
+          />
+          <figcaption>
+	    Mobius2DReal((x,y),(-3,3),(3,-3),(-0.2,0.2))
           </figcaption>
         </figure>
 
@@ -150,9 +182,9 @@ def f2(x, y):
       <section id="conclusion">
         <h2>Conclusion</h2>
         <p>
-          To conclude, Stripe Average Coloring works just as well for Julia sets as it does for Mandelbrot sets.
-	  The Julia sets of functions with poles also don't inherently look drastically different from those of
-	  polynomials, at least to my eyes.
+          To conclude, you can get some interesting structures with Mobius transformations. It's also not too hard to
+	  manipulate L-Systems into creating interesting, organic patterns. What's more difficult is that coastline stuff
+	  I wanted to do.
         </p>
       </section>
 
